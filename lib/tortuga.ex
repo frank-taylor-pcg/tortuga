@@ -10,13 +10,13 @@ defmodule Tortuga do
   @moduledoc """
   Documentation for `Tortuga`.
   """
-	def timer_elapsed() do
-		Process.send_after(__MODULE__, :heartbeat, @timer)
-	end
+  def timer_elapsed() do
+    Process.send_after(__MODULE__, :heartbeat, @timer)
+  end
 
   def init(_args \\ []) do
     port = Port.open({:spawn, @cmd}, [:binary, :exit_status])
-		timer_elapsed()
+    timer_elapsed()
 
     {:ok, %{latest_output: nil, exit_status: nil, port: port} }
   end
@@ -27,7 +27,7 @@ defmodule Tortuga do
 
     Logger.info "From GUI: #{latest_output}"
 
-		new_state = %{state | latest_output: latest_output}
+    new_state = %{state | latest_output: latest_output}
     {:noreply, new_state}
   end
 
@@ -36,25 +36,25 @@ defmodule Tortuga do
     {:stop, :csharp_gui_process_exited, state}
   end
 
-	def handle_info(:heartbeat, state = %{port: port}) do
+  def handle_info(:heartbeat, state = %{port: port}) do
     Port.info(port)
     |> handle_heartbeat()
-		{:noreply, state}
-	end
+    {:noreply, state}
+  end
 
   # no-op catch-all callback for unhandled messages
-	def handle_info(_msg, state), do: {:noreply, state}
+  def handle_info(_msg, state), do: {:noreply, state}
 
   defp handle_heartbeat(nil), do: {:heartbeat_stopped}
   defp handle_heartbeat(_) do
-		write("heartbeat")
-		timer_elapsed()
+    write("heartbeat")
+    timer_elapsed()
   end
 
-	def handle_cast({:write, value}, state = %{port: port}) do
-		Port.command(port, value)
-		{:noreply, state}
-	end
+  def handle_cast({:write, value}, state = %{port: port}) do
+    Port.command(port, value)
+    {:noreply, state}
+  end
 
   @doc """
   Starts the port control server
