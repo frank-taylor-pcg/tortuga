@@ -1,21 +1,7 @@
 # Tortuga
 
-**TODO: Add description**
+This is an example/practice application in communicating with non-Elixir applications via the use of Ports.  The name Tortuga comes from the famous pirate port of Tortuga.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `tortuga` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:tortuga, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/tortuga](https://hexdocs.pm/tortuga).
-
+This is not currently installable as a package. Clone the repo, modify the code as you see fit. Submit a PR if you see a way to improve it.
